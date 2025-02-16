@@ -1,6 +1,25 @@
-import express, { Request, Response } from 'express';
+import { Controller, Get, Post, Body, Param } from '@nestjs/common';
+import { UserService } from '@controllers/api/user/user.service';
 
-const router = express.Router();
+@Controller('api/users')
+export class UserController {
+    constructor(private readonly userService: UserService) {}
+
+    @Post()
+    async create(@Body() user: any) {
+        return this.userService.create(user);
+    }
+
+    @Get()
+    async findAll() {
+        return this.userService.findAll();
+    }
+
+    @Get(':id')
+    async findOne(@Param('id') id: number) {
+        return this.userService.findOne(id);
+    }
+}
 
 // router.post('/users', async (req: Request, res: Response) => {
 //     // try {
@@ -12,20 +31,20 @@ const router = express.Router();
 //     // }
 // });
 
-router.get('/', async (req: Request, res: Response) => {
-    try {
-        // const rows = await db.query('SELECT * FROM users');
-        // res.json(rows);
-    } catch (error) {
-        res.status(500).json({ message: 'Erreur serveur', error });
-    }
-    // try {
-    //     const users = await User.find();
-    //     res.status(200).send(users);
-    // } catch (error) {
-    //     res.status(500).send(error);
-    // }
-});
+// router.get('/', async (req: Request, res: Response) => {
+//     try {
+//         // const rows = await db.query('SELECT * FROM users');
+//         // res.json(rows);
+//     } catch (error) {
+//         res.status(500).json({ message: 'Erreur serveur', error });
+//     }
+//     // try {
+//     //     const users = await User.find();
+//     //     res.status(200).send(users);
+//     // } catch (error) {
+//     //     res.status(500).send(error);
+//     // }
+// });
 
 // router.get('/users/:id', async (req: Request, res: Response) => {
 //     // try {
@@ -63,4 +82,4 @@ router.get('/', async (req: Request, res: Response) => {
 //     // }
 // });
 
-export default router;
+// export default router;

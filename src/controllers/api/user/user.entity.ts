@@ -1,6 +1,6 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 import { IsEmail, IsOptional, IsString } from 'class-validator';
-import { Role } from "./Role";
+import { Role } from "../role/role.entity";
 
 @Entity()
 export class User {
